@@ -1,10 +1,12 @@
 // Define two arrays of all 12 notes, one with sharp names and one with flat names:
-const sharps = ["C", "C♯", "D", "D♯", "E", "E♯", "F♯", "G", "G♯", "A", "A♯", "B"];
 const flats = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"];
+const sharps = ["C", "C♯", "D", "D♯", "E", "E♯", "F♯", "G", "G♯", "A", "A♯", "B"];
+
 
 // Define two arrays of chord root notes - one for "sharp" keys and one for "flat" keys:
-const sharpRoots = ["C♯", "F♯", "B", "E", "A", "D", "G"];
 const flatRoots = ["C", "F", "B♭", "E♭", "A♭", "D♭", "G♭"];
+const sharpRoots = ["C♯", "F♯", "B", "E", "A", "D", "G"];
+
 // (some overlap is necessary to account for alternate spellings of C#/Db and F#/Gb)
 
 
@@ -13,8 +15,9 @@ function spellMajorChord(root) {
 
     //1. Decide if the root note supplied is for a sharp key or a flat key 
     //   and choose the corresponding array:
-    if (sharpRoots.includes(root)) tones = sharps;
     if (flatRoots.includes(root)) tones = flats;
+    if (sharpRoots.includes(root)) tones = sharps;
+
 
     //2. Find the location of the root note in that array:
     let i = tones.indexOf(root);
@@ -23,15 +26,8 @@ function spellMajorChord(root) {
     return [root, tones[(i + 4) % 12], tones[(i + 7) % 12]];
 }
 
-// Make the buttons for the sharp key roots:
-const sharpButtons = sharpRoots.map(note => {
-    return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
-})
 
-const sharpsContainer = document.querySelector("#sharpsContainer");
-sharpsContainer.innerHTML = sharpButtons.join("");
-
-//...and then the flat key roots:
+// Make the buttons for the flat key roots:
 const flatButtons = flatRoots.map(note => {
     return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
 })
@@ -39,11 +35,23 @@ const flatButtons = flatRoots.map(note => {
 const flatsContainer = document.querySelector("#flatsContainer");
 flatsContainer.innerHTML = flatButtons.join("");
 
+// ...and then the sharp key roots:
+const sharpButtons = sharpRoots.map(note => {
+    return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
+})
+
+const sharpsContainer = document.querySelector("#sharpsContainer");
+sharpsContainer.innerHTML = sharpButtons.join("");
+
+
+
 
 // Add event listeners to all of the buttons
 const buttons = [...document.querySelectorAll("button")];
 buttons.map(button => button.addEventListener("click", (e) => handleClick(e)));
 
+buttons[0].classList.remove("disabled");
+buttons[0].classList.add("active");
 
 function handleClick(e) {
     // Deactivate all other buttons:
