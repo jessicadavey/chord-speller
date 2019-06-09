@@ -23,4 +23,18 @@ function spellMajorChord(root) {
     return [root, tones[(i + 4) % 12], tones[(i + 7) % 12]];
 }
 
-console.log(spellMajorChord("D♭"));
+// Make the buttons for the sharp key roots:
+const sharpButtons = sharpRoots.map(note => {
+    return `<button class="btn btn-info mx-auto rootname">${note}</button>`
+})
+
+const sharpsContainer = document.querySelector("#sharpsContainer");
+sharpsContainer.innerHTML = sharpButtons.join("");
+
+//...and then the flat key roots:
+const flatButtons = flatRoots.map(note => {
+    return `<button class="btn btn-info mx-auto rootname">${note}</button>`
+})
+
+const flatsContainer = document.querySelector("#flatsContainer");
+flatsContainer.innerHTML = flatButtons.join("");
