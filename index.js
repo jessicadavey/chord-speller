@@ -25,7 +25,7 @@ function spellMajorChord(root) {
 
 // Make the buttons for the sharp key roots:
 const sharpButtons = sharpRoots.map(note => {
-    return `<button class="btn btn-info mx-auto rootname">${note}</button>`
+    return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
 })
 
 const sharpsContainer = document.querySelector("#sharpsContainer");
@@ -33,8 +33,36 @@ sharpsContainer.innerHTML = sharpButtons.join("");
 
 //...and then the flat key roots:
 const flatButtons = flatRoots.map(note => {
-    return `<button class="btn btn-info mx-auto rootname">${note}</button>`
+    return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
 })
 
 const flatsContainer = document.querySelector("#flatsContainer");
 flatsContainer.innerHTML = flatButtons.join("");
+
+
+// Add event listeners to all of the buttons
+const buttons = [...document.querySelectorAll("button")];
+buttons.map(button => button.addEventListener("click", (e) => handleClick(e)));
+
+
+function handleClick(e) {
+    // Deactivate all other buttons:
+    buttons.map(button => button.classList.add("disabled"));
+    buttons.map(button => button.classList.remove("active"));
+
+    // Activate selected button:
+    e.target.classList.remove("disabled");
+    e.target.classList.add("active");
+
+    // When each button is clicked, spell the chord and update elements
+    let chord = spellMajorChord(e.target.innerHTML);
+
+    const root = document.querySelector("#root");
+    const third = document.querySelector("#third");
+    const fifth = document.querySelector("#fifth");
+
+    root.innerHTML = chord[0];
+    third.innerHTML = chord[1];
+    fifth.innerHTML = chord[2];
+
+}
