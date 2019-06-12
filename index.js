@@ -74,3 +74,9 @@ function handleClick(e) {
     fifth.innerHTML = chord[2];
 
 }
+
+
+// Select which type of chord:
+
+const chordSelector = document.querySelector("#chord-select");
+console.log(chordSelector.value);

@@ -23,10 +23,14 @@
 <body>
     <header class="text-center">
         <h1>Chord Speller</h1>
-        <p>Major Chords</p>
     </header>
+
     <main>
         <div class="container bg-light root-box">
+            <select class="custom-select mt-2" id="chord-select">
+                <option value="major">Major Triad</option>
+                <option value="minor">Minor Triad</option>
+            </select>
             <div class="row my-2 pt-2" id="flatsContainer"></div>
             <div class="row my-2" id="sharpsContainer"></div>
             <div class="row"></div>
