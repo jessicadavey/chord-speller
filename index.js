@@ -10,20 +10,30 @@ const sharpRoots = ["C♯", "F♯", "B", "E", "A", "D", "G"];
 // (some overlap is necessary to account for alternate spellings of C#/Db and F#/Gb)
 
 
-function spellMajorChord(root) {
+function spellTriad(root) {
+    // 1. Select which type of chord:
+    const chordType = document.querySelector("#chord-select").value;
+
     let tones;
 
-    //1. Decide if the root note supplied is for a sharp key or a flat key 
+    // 2. Decide if the root note supplied is for a sharp key or a flat key 
     //   and choose the corresponding array:
     if (flatRoots.includes(root)) tones = flats;
     if (sharpRoots.includes(root)) tones = sharps;
 
 
-    //2. Find the location of the root note in that array:
+    // 3. Find the location of the root note in that array:
     let i = tones.indexOf(root);
 
-    //3. Return an array of three notes chosen from that arrray, making sure the index is never > 11:
-    return [root, tones[(i + 4) % 12], tones[(i + 7) % 12]];
+    // 4. Return an array of three notes chosen from that arrray, making sure the index is never > 11:
+
+    if (chordType === "major")
+
+        return [root, tones[(i + 4) % 12], tones[(i + 7) % 12]];
+
+    if (chordType === "minor")
+
+        return [root, tones[(i + 3) % 12], tones[(i + 7) % 12]];
 }
 
 
@@ -63,7 +73,7 @@ function handleClick(e) {
     e.target.classList.add("active");
 
     // When each button is clicked, spell the chord and update elements
-    let chord = spellMajorChord(e.target.innerHTML);
+    let chord = spellTriad(e.target.innerHTML);
 
     const root = document.querySelector("#root");
     const third = document.querySelector("#third");
@@ -74,9 +84,3 @@ function handleClick(e) {
     fifth.innerHTML = chord[2];
 
 }
-
-
-// Select which type of chord:
-
-const chordSelector = document.querySelector("#chord-select");
-console.log(chordSelector.value);
