@@ -10,9 +10,44 @@ const sharpRoots = ["C♯", "F♯", "B", "E", "A", "D", "G"];
 // (some overlap is necessary to account for alternate spellings of C#/Db and F#/Gb)
 
 
-function spellTriad(root) {
-    // 1. Select which type of chord:
-    const chordType = document.querySelector("#chord-select").value;
+// Make the buttons: 
+
+makeButtons();
+
+//  Select which type of chord:
+
+const chordSelector = document.querySelector("#chord-select");
+chordSelector.addEventListener("change", makeButtons);
+
+
+
+function makeButtons() {
+    console.log("hello");
+    // Make the buttons for the flat key roots:
+    const flatButtons = flatRoots.map(note => {
+        return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
+    })
+
+    const flatsContainer = document.querySelector("#flatsContainer");
+    flatsContainer.innerHTML = flatButtons.join("");
+
+    // ...and then the sharp key roots:
+    const sharpButtons = sharpRoots.map(note => {
+        return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
+    })
+
+    const sharpsContainer = document.querySelector("#sharpsContainer");
+    sharpsContainer.innerHTML = sharpButtons.join("");
+
+}
+
+
+
+
+
+
+function spellMajorTriad(root) {
+
 
     let tones;
 
@@ -37,21 +72,6 @@ function spellTriad(root) {
 }
 
 
-// Make the buttons for the flat key roots:
-const flatButtons = flatRoots.map(note => {
-    return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
-})
-
-const flatsContainer = document.querySelector("#flatsContainer");
-flatsContainer.innerHTML = flatButtons.join("");
-
-// ...and then the sharp key roots:
-const sharpButtons = sharpRoots.map(note => {
-    return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
-})
-
-const sharpsContainer = document.querySelector("#sharpsContainer");
-sharpsContainer.innerHTML = sharpButtons.join("");
 
 
 
@@ -73,7 +93,7 @@ function handleClick(e) {
     e.target.classList.add("active");
 
     // When each button is clicked, spell the chord and update elements
-    let chord = spellTriad(e.target.innerHTML);
+    let chord = spellMajorTriad(e.target.innerHTML);
 
     const root = document.querySelector("#root");
     const third = document.querySelector("#third");
