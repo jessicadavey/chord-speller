@@ -1,43 +1,68 @@
 // Define two arrays of all 12 notes, one with sharp names and one with flat names:
 const flats = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"];
 const sharps = ["C", "C♯", "D", "D♯", "E", "E♯", "F♯", "G", "G♯", "A", "A♯", "B"];
-
-
-// Define two arrays of chord root notes - one for "sharp" keys and one for "flat" keys:
-const flatRoots = ["C", "F", "B♭", "E♭", "A♭", "D♭", "G♭"];
-const sharpRoots = ["C♯", "F♯", "B", "E", "A", "D", "G"];
-
 // (some overlap is necessary to account for alternate spellings of C#/Db and F#/Gb)
-
-
-// Make the buttons: 
-
-makeButtons();
 
 //  Select which type of chord:
 
 const chordSelector = document.querySelector("#chord-select");
+
 chordSelector.addEventListener("change", makeButtons);
 
 
+// Make the buttons: 
+makeButtons();
+
 
 function makeButtons() {
-    console.log("hello");
-    // Make the buttons for the flat key roots:
-    const flatButtons = flatRoots.map(note => {
-        return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
-    })
 
-    const flatsContainer = document.querySelector("#flatsContainer");
-    flatsContainer.innerHTML = flatButtons.join("");
+    console.log(chordSelector.value);
 
-    // ...and then the sharp key roots:
-    const sharpButtons = sharpRoots.map(note => {
-        return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
-    })
+    if (chordSelector.value === "major") {
+        // Define two arrays of chord root notes - one for "sharp" keys and one for "flat" keys:
+        const flatRoots = ["C", "F", "B♭", "E♭", "A♭", "D♭", "G♭"];
+        const sharpRoots = ["C♯", "F♯", "B", "E", "A", "D", "G"];
 
-    const sharpsContainer = document.querySelector("#sharpsContainer");
-    sharpsContainer.innerHTML = sharpButtons.join("");
+        // Make the buttons for the flat key roots:
+        const flatButtons = flatRoots.map(note => {
+            return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
+        })
+
+        const flatsContainer = document.querySelector("#flatsContainer");
+        flatsContainer.innerHTML = flatButtons.join("");
+
+        // ...and then the sharp key roots:
+        const sharpButtons = sharpRoots.map(note => {
+            return `<button class="btn btn-info mx-auto rootname disabled">${note}</button>`
+        })
+
+        const sharpsContainer = document.querySelector("#sharpsContainer");
+        sharpsContainer.innerHTML = sharpButtons.join("");
+
+    }
+
+    if (chordSelector.value === "minor") {
+        // Define two arrays of chord root notes - one for "sharp" keys and one for "flat" keys:
+        const flatRoots = ["A", "D", "G", "C", "F", "B♭", "E♭"];
+        const sharpRoots = ["A♯", "D♯", "G♯", "C♯", "F♯", "B", "E"];
+
+        // Make the buttons for the flat key roots:
+        const flatButtons = flatRoots.map(note => {
+            return `<button class="btn btn-danger mx-auto rootname disabled">${note}</button>`
+        })
+
+        const flatsContainer = document.querySelector("#flatsContainer");
+        flatsContainer.innerHTML = flatButtons.join("");
+
+        // ...and then the sharp key roots:
+        const sharpButtons = sharpRoots.map(note => {
+            return `<button class="btn btn-danger mx-auto rootname disabled">${note}</button>`
+        })
+
+        const sharpsContainer = document.querySelector("#sharpsContainer");
+        sharpsContainer.innerHTML = sharpButtons.join("");
+
+    }
 
 }
 
