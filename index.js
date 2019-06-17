@@ -64,8 +64,23 @@ function makeButtons() {
     let buttons = document.querySelectorAll("button");
     buttons.forEach(button => button.addEventListener("click", (e) => handleClick(e)));
 
+    // Initialize: 
+
     buttons[0].classList.remove("disabled");
     buttons[0].classList.add("active");
+
+    let chord;
+    if (chordSelector.value === "major") chord = spellMajorTriad(buttons[0].innerHTML);
+    if (chordSelector.value === "minor") chord = spellMinorTriad(buttons[0].innerHTML);
+
+    const root = document.querySelector("#root");
+    const third = document.querySelector("#third");
+    const fifth = document.querySelector("#fifth");
+
+    root.innerHTML = chord[0];
+    third.innerHTML = chord[1];
+    fifth.innerHTML = chord[2];
+
 }
 
 
